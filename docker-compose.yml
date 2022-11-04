@@ -15,8 +15,9 @@ services:
     build:
       context: .
       dockerfile: php/Dockerfile
-    # ports: 
-      # - "9003:9003"
+    ports:
+      - "9005:9005" 
+      - "9000:9000"
     networks:
       - internal
     volumes:

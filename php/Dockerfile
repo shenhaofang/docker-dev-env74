@@ -82,10 +82,12 @@ RUN docker-php-ext-configure pdo_pgsql --with-pdo-pgsql \
     zip \
     bz2 \
     gd
-# RUN git clone https://github.com/php-memcached-dev/php-memcached.git /usr/src/php/ext/memcached \
-#     && cd /usr/src/php/ext/memcached && git checkout -b php7 origin/php7 \
-#     && docker-php-ext-configure memcached \
-# 	&& docker-php-ext-install -j$(nproc) \
-# 	memcached
+RUN wget -O /usr/src/memcached.tar.gz https://github.com/php-memcached-dev/php-memcached/archive/refs/tags/v3.2.0.tar.gz \
+    && cd /usr/src/ && tar -xzvf memcached.tar.gz \
+    && cd php-memcached-3.2.0/ \
+	&& phpize \
+    && ./configure \
+    && make \
+    && make install
 ADD php/php.ini /usr/local/etc/php
 ADD php/docker-php-ext-xdebug.ini /usr/local/etc/php/conf.d
